@@ -236,7 +236,7 @@ public class SetPathActivity extends AppCompatActivity {
             if(startLocationsList.contains(new LatLng(15.3757246, 73.9258352)) ||startLocationsList.contains(new LatLng(15.3733589, 74.0106969))  ||startLocationsList.contains(new LatLng(15.2982048, 73.97173699999999)) ){
                 Toast.makeText(SetPathActivity.this, "Divider detected ", Toast.LENGTH_SHORT).show();
                 //here we will put he signal , basically call the funtion which will give signal to rpi to move the divider
-                new ConnectToRaspberryPiTask().execute();
+               // new ConnectToRaspberryPiTask().execute();
 
                 Log.d("divider","divider detected");
             }else {

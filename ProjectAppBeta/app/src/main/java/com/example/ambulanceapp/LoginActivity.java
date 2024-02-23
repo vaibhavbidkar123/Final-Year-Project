@@ -57,7 +57,13 @@ public class LoginActivity extends AppCompatActivity {
                     // Navigate to the next activity (assuming DisplayUsersActivity.class is the name of your next activity)
                     Intent intent = new Intent(LoginActivity.this, DisplayUsersActivity.class);
                     startActivity(intent);
-                } else if (user != null) {
+                } else if((name.equals("developer") || name.equals("dev")) && password.equals("1234")){
+
+                    Intent intent = new Intent(LoginActivity.this, ManageDividersActivity.class);
+                    startActivity(intent);
+
+
+                }else if (user != null) {
                     // Login successful
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, SetPathActivity.class);
