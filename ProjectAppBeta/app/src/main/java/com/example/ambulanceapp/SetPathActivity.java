@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -75,6 +76,40 @@ public class SetPathActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    private class ConnectToRaspberryPiTask extends AsyncTask<Void, Void, String> {
+
+        private static final String RASPBERRY_PI_IP = "192.168.0.105";
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                URL url = new URL("http://" + RASPBERRY_PI_IP + ":5000/check_connection");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                try {
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    // Read the response if needed
+                    // For simplicity, we are not processing the response in this example
+                } finally {
+                    urlConnection.disconnect();
+                }
+
+                return "Connection successful!";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Connection failed!";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Update UI or show a Toast based on the result
+            // For simplicity, we are not updating the UI in this example
+        }
     }
 
 
@@ -190,6 +225,7 @@ public class SetPathActivity extends AppCompatActivity {
             return startLocationsList;
         }
 
+
         @Override
         protected void onPostExecute(List<LatLng> startLocationsList) {
             // Log the list of start locations
@@ -199,6 +235,9 @@ public class SetPathActivity extends AppCompatActivity {
             }
             if(startLocationsList.contains(new LatLng(15.3757246, 73.9258352)) ||startLocationsList.contains(new LatLng(15.3733589, 74.0106969))  ||startLocationsList.contains(new LatLng(15.2982048, 73.97173699999999)) ){
                 Toast.makeText(SetPathActivity.this, "Divider detected ", Toast.LENGTH_SHORT).show();
+                //here we will put he signal , basically call the funtion which will give signal to rpi to move the divider
+                new ConnectToRaspberryPiTask().execute();
+
                 Log.d("divider","divider detected");
             }else {
                 Toast.makeText(SetPathActivity.this, "NO Divider detected ", Toast.LENGTH_SHORT).show();
