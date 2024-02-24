@@ -32,6 +32,9 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
     private MapView mapView;
     private GoogleMap googleMap;
     private Polyline polyline;
+    private ArrayList<MapPoints> dividersList;
+
+   // private MapPointRepository mapPointRepository;
 
     private List<LatLng> coordinates; // Your list of coordinates
 
@@ -41,7 +44,8 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
         setContentView(R.layout.activity_show_route);
         Intent intent = getIntent();
 
-        coordinates = intent.getParcelableArrayListExtra("myObjectList");
+        coordinates = intent.getParcelableArrayListExtra("routePoints");
+        dividersList = (ArrayList<MapPoints>) getIntent().getSerializableExtra("dividersList");
 
         String assetFilePath = "Indian_States.txt";
 
@@ -49,7 +53,7 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-        new GeoJsonParserTask().execute(assetFilePath);
+      //  new GeoJsonParserTask().execute(assetFilePath);
     }
 
     @Override
@@ -61,9 +65,15 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
         // Add markers for source (first coordinate) and destination (last coordinate)
         addMarker(googleMap, "Source", coordinates.get(0));
         addMarker(googleMap, "Destination", coordinates.get(coordinates.size() - 1));
-        addDividerMarker(googleMap, "Divider 1", new LatLng(15.3757246, 73.9258352));
-        addDividerMarker(googleMap, "Divider 2", new LatLng(15.3733589, 74.0106969));
-        addDividerMarker(googleMap, "Divider 3", new LatLng(15.2982048, 73.97173699999999));
+//        addDividerMarker(googleMap, "Divider 1", new LatLng(15.3757246, 73.9258352));
+//        addDividerMarker(googleMap, "Divider 2", new LatLng(15.3733589, 74.0106969));
+//        addDividerMarker(googleMap, "Divider 3", new LatLng(15.2982048, 73.97173699999999));
+
+
+
+        for (MapPoints item : dividersList) {
+           addDividerMarker(googleMap, item.title,new LatLng(item.latitude,item.longitude));
+        }
 
 
     }
@@ -166,7 +176,7 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
     private  void addDividerMarker(GoogleMap googleMap, String title, LatLng position){
 
         //condition added which will plot only on dividers which come in between the route 
-        if(coordinates.contains(position))
+       // if(coordinates.contains(position))
          googleMap.addMarker(new MarkerOptions().position(position).title(title).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
     }

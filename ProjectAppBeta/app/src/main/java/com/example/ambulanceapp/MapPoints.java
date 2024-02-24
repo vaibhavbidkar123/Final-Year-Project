@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "map_points")
-public class MapPoints {
+public class MapPoints implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
@@ -19,5 +21,8 @@ public class MapPoints {
     public String title;
 
     // getters and setters
+
+
+
 }
 

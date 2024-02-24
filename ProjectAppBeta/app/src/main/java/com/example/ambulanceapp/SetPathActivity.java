@@ -34,6 +34,7 @@ public class SetPathActivity extends AppCompatActivity {
 
     private AutoCompleteTextView source,destination;
     private Button path;
+    private MapPointRepository mapPointRepository;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -228,26 +229,48 @@ public class SetPathActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<LatLng> startLocationsList) {
-            // Log the list of start locations
-            for (int i = 0; i < startLocationsList.size(); i++) {
-                LatLng latLng = startLocationsList.get(i);
-                Log.d("StartLocation", "Step " + i + ": " + latLng.latitude + ", " + latLng.longitude);
-            }
-            if(startLocationsList.contains(new LatLng(15.3757246, 73.9258352)) ||startLocationsList.contains(new LatLng(15.3733589, 74.0106969))  ||startLocationsList.contains(new LatLng(15.2982048, 73.97173699999999)) ){
-                Toast.makeText(SetPathActivity.this, "Divider detected ", Toast.LENGTH_SHORT).show();
-                //here we will put he signal , basically call the funtion which will give signal to rpi to move the divider
-               // new ConnectToRaspberryPiTask().execute();
+            // Update UI or show a Toast based on the result
 
-                Log.d("divider","divider detected");
-            }else {
-                Toast.makeText(SetPathActivity.this, "NO Divider detected ", Toast.LENGTH_SHORT).show();
-                Log.d("divider","No divider detected");
-            }
-            Intent intent = new Intent(SetPathActivity.this, ShowRoute.class);
-            intent.putParcelableArrayListExtra("myObjectList", new ArrayList<>(startLocationsList));
-            startActivity(intent);
+            // Now, perform the database operations on the main thread
+            new AsyncTask<Void, Void, List<MapPoints>>() {
+                @Override
+                protected List<MapPoints> doInBackground(Void... voids) {
+                    mapPointRepository = new MapPointRepository(userDatabase.getInstance(getApplicationContext()).mapPointDao());
+                    return mapPointRepository.getAllMapPoints();
+                }
 
+                @Override
+                protected void onPostExecute(List<MapPoints> dividersList) {
+                    // Now, you can access dividersList on the main thread
+
+                    // Log the list of start locations
+//                    for (int i = 0; i < startLocationsList.size(); i++) {
+//                        LatLng latLng = startLocationsList.get(i);
+//                        Log.d("StartLocation", "Step " + i + ": " + latLng.latitude + ", " + latLng.longitude);
+//                    }
+
+                  //  Toast.makeText(SetPathActivity.this, dividersList + "", Toast.LENGTH_SHORT).show();
+                    for (MapPoints item : dividersList) {
+
+                        if (startLocationsList.contains(new LatLng(item.latitude, item.longitude))) {
+                            Toast.makeText(SetPathActivity.this, "Divider detected ", Toast.LENGTH_SHORT).show();
+                            //Log.d("divider", "divider detected");
+
+                        } else {
+                          //  Toast.makeText(SetPathActivity.this, "NO Divider detected ", Toast.LENGTH_SHORT).show();
+                           // Log.d("divider", "No divider detected");
+                        }
+                    }
+
+                    Intent intent = new Intent(SetPathActivity.this, ShowRoute.class);
+                    intent.putParcelableArrayListExtra("routePoints", new ArrayList<>(startLocationsList));
+                    intent.putExtra("dividersList", new ArrayList<>(dividersList));
+                    startActivity(intent);
+                }
+            }.execute();
         }
     }
+    }
 
-}
+
+

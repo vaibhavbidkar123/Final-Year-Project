@@ -30,13 +30,13 @@ public class DisplayDividersActivity extends AppCompatActivity {
         recyclerView.setAdapter(mapPointAdapter);
 
         // Set the delete click listener
-        mapPointAdapter.setOnDeleteClickListener(position -> deleteUser(position));
+        mapPointAdapter.setOnDeleteClickListener(position -> deleteMapPoint(position));
 
         // Load users from the database and update the RecyclerView
-        loadUsers();
+        loadMapPoints();
     }
 
-    private void deleteUser(int position) {
+    private void deleteMapPoint(int position) {
         MapPoints mapPointsToDelete = mapPointAdapter.getMapPoints().get(position);
 
         new AsyncTask<Void, Void, Void>() {
@@ -51,12 +51,12 @@ public class DisplayDividersActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
 
                 // Refresh the RecyclerView after deletion
-                loadUsers();
+                loadMapPoints();
             }
         }.execute();
     }
 
-    private void loadUsers() {
+    private void loadMapPoints() {
         // Use AsyncTask to perform database operation in the background
         new AsyncTask<Void, Void, List<MapPoints>>() {
             @Override
