@@ -1,18 +1,22 @@
 package com.example.ambulanceapp;
 
+
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -33,6 +37,9 @@ import java.util.Scanner;
 public class SetPathActivity extends AppCompatActivity {
 
     private AutoCompleteTextView source,destination;
+
+    private ProgressDialog progressDialog;
+    private Handler handler;
     private Button path;
     private MapPointRepository mapPointRepository;
     @Override
@@ -51,6 +58,9 @@ public class SetPathActivity extends AppCompatActivity {
 
         destination.setAdapter(adapter);
         destination.setThreshold(1);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
 
 
         path.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +239,11 @@ public class SetPathActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<LatLng> startLocationsList) {
+
+
             // Update UI or show a Toast based on the result
+
+
 
             // Now, perform the database operations on the main thread
             new AsyncTask<Void, Void, List<MapPoints>>() {
@@ -250,17 +264,52 @@ public class SetPathActivity extends AppCompatActivity {
 //                    }
 
                   //  Toast.makeText(SetPathActivity.this, dividersList + "", Toast.LENGTH_SHORT).show();
+
+
+
+
                     for (MapPoints item : dividersList) {
 
                         if (startLocationsList.contains(new LatLng(item.latitude, item.longitude))) {
-                            Toast.makeText(SetPathActivity.this, "Divider detected ", Toast.LENGTH_SHORT).show();
+
+
+                            double delay = calculateDistance(startLocationsList.get(0).latitude,startLocationsList.get(0).longitude,item.latitude,item.longitude);
+                            long delay1 = (long)delay;
+
+                                progressDialog.show();
+                                handler = new Handler();
+
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Call your function or perform any operation after the delay
+                                        // For example, you can call yourDelayedFunction();
+                                        progressDialog.dismiss();
+                                        Toast.makeText(SetPathActivity.this, "Divider detected "+delay1, Toast.LENGTH_SHORT).show();
+                                        //  new ConnectToRaspberryPiTask().execute();
+
+                                        // Dismiss the loader
+
+                                    }
+                                }, delay1*1000);
+                                break;
+
+                                //Thread.sleep(delay1*1000);
+
+                                //Toast.makeText(SetPathActivity.this, "Divider detected "+delay1, Toast.LENGTH_SHORT).show();
+                              //  new ConnectToRaspberryPiTask().execute();
+
+
                             //Log.d("divider", "divider detected");
 
                         } else {
-                          //  Toast.makeText(SetPathActivity.this, "NO Divider detected ", Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(SetPathActivity.this, "NO Divider detected ", Toast.LENGTH_SHORT).show();
                            // Log.d("divider", "No divider detected");
                         }
                     }
+
+
+
 
                     Intent intent = new Intent(SetPathActivity.this, ShowRoute.class);
                     intent.putParcelableArrayListExtra("routePoints", new ArrayList<>(startLocationsList));
@@ -268,8 +317,44 @@ public class SetPathActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }.execute();
+
+
+
+        }
+
+        private  double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+            // Convert latitude and longitude from degrees to radians
+            lat1 = Math.toRadians(lat1);
+            lon1 = Math.toRadians(lon1);
+            lat2 = Math.toRadians(lat2);
+            lon2 = Math.toRadians(lon2);
+
+            // Calculate the differences between latitudes and longitudes
+            double dLat = lat2 - lat1;
+            double dLon = lon2 - lon1;
+
+            // Haversine formula
+            double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1) * Math.cos(lat2) *
+                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            // Distance in kilometers
+            return 6371 * c;
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Remove callbacks from the handler to prevent memory leaks
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
+
     }
 
 

@@ -176,7 +176,7 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
     private  void addDividerMarker(GoogleMap googleMap, String title, LatLng position){
 
         //condition added which will plot only on dividers which come in between the route 
-       // if(coordinates.contains(position))
+        if(coordinates.contains(position))
          googleMap.addMarker(new MarkerOptions().position(position).title(title).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
     }
