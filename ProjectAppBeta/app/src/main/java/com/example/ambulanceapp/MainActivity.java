@@ -10,6 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    //login and register page buttons
     private Button loginPage,registerPage;
 
     @Override
@@ -17,9 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //connecting xml fields
         loginPage=findViewById(R.id.GoToLoginButton);
         registerPage=findViewById(R.id.GoToRegisterButton);
 
+
+        //after clicking on register button , register form will open
         registerPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        //after clicking on login button login form will open
         loginPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
