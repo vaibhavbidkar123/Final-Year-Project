@@ -77,97 +77,6 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
 
 
     }
-
-//    private class GeoJsonParserTask extends AsyncTask<String, Void, List<LatLng>> {
-//
-//        @Override
-//        protected List<LatLng> doInBackground(String... params) {
-//            String assetFilePath = params[0];
-//            return parseGeoJsonFromAsset(assetFilePath);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<LatLng> coordinatesList) {
-//            // Handle the result, for example, log the coordinates
-//            for (LatLng latLng : coordinatesList) {
-//                Log.d("values", "Latitude: " + latLng.latitude + ", Longitude: " + latLng.longitude);
-//            }
-//
-//            // Draw polyline on Google Map
-//            drawPolyline(coordinatesList);
-//        }
-//    }
-
-//    private List<LatLng> parseGeoJsonFromAsset(String assetFilePath) {
-//        List<LatLng> coordinatesList = new ArrayList<>();
-//
-//        try {
-//            InputStream inputStream = getAssets().open(assetFilePath);
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//            StringBuilder json = new StringBuilder();
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                json.append(line);
-//            }
-//
-//            JSONObject jsonRootObject = new JSONObject(json.toString());
-//            JSONArray featuresArray = jsonRootObject.getJSONArray("features");
-//
-//            for (int i = 0; i < featuresArray.length(); i++) {
-//                JSONObject featureObject = featuresArray.getJSONObject(i);
-//                JSONObject propertiesObject = featureObject.getJSONObject("properties");
-//
-//                // Check if the feature represents Goa
-//                if ("Goa".equals(propertiesObject.getString("NAME_1"))) {
-//                    JSONObject geometryObject = featureObject.getJSONObject("geometry");
-//
-//                    // Assuming Goa's borders are represented by features of type "MultiPolygon"
-//                    if ("MultiPolygon".equals(geometryObject.getString("type"))) {
-//                        JSONArray coordinatesArray = geometryObject.getJSONArray("coordinates").getJSONArray(3);
-//
-//                        for (int j = 0; j < coordinatesArray.length(); j++) {
-//                            JSONArray polygonCoordinates = coordinatesArray.getJSONArray(j);
-//
-//                            for (int k = 0; k < polygonCoordinates.length(); k++) {
-//                                JSONArray coordinate = polygonCoordinates.getJSONArray(k);
-//                                double latitude = coordinate.getDouble(1);
-//                                double longitude = coordinate.getDouble(0);
-//                                coordinatesList.add(new LatLng(latitude, longitude));
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//            reader.close();
-//        } catch (IOException | JSONException e) {
-//            Log.e(" ERROR IN BORDER GEO-JSON", "Error reading/parsing GeoJSON from asset", e);
-//        }
-//
-//        return coordinatesList;
-//    }
-
-//    private void drawPolyline(List<LatLng> coordinatesList) {
-//        if (googleMap == null || coordinatesList.size() < 2) {
-//            // Map not ready or not enough coordinates to draw a polyline
-//            return;
-//        }
-//
-//        // Create PolylineOptions
-//        PolylineOptions polylineOptions = new PolylineOptions();
-//        polylineOptions.color(0xFF0000FF); // Blue color
-//        polylineOptions.width(5);
-//
-//        // Add coordinates to PolylineOptions
-//        for (LatLng latLng : coordinatesList) {
-//            polylineOptions.add(latLng);
-//        }
-//
-//        // Add polyline to the map
-//        polyline = googleMap.addPolyline(polylineOptions);
-//    }
-
     // Method to add a marker
     private void addMarker(GoogleMap googleMap, String title, LatLng position) {
         googleMap.addMarker(new MarkerOptions().position(position).title(title));
@@ -176,7 +85,7 @@ public class ShowRoute extends AppCompatActivity implements OnMapReadyCallback {
     private  void addDividerMarker(GoogleMap googleMap, String title, LatLng position){
 
         //condition added which will plot only on dividers which come in between the route 
-        if(coordinates.contains(position))
+        // if(coordinates.contains(position))
          googleMap.addMarker(new MarkerOptions().position(position).title(title).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
     }

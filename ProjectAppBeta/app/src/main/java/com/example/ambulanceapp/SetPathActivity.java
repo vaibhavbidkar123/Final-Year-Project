@@ -94,6 +94,8 @@ public class SetPathActivity extends AppCompatActivity {
     private class ConnectToRaspberryPiTask extends AsyncTask<Void, Void, String> {
 
         private static final String RASPBERRY_PI_IP = "192.168.0.105";
+        //10.41.0.1
+        //192.168.0.105
 
         @Override
         protected String doInBackground(Void... params) {
@@ -285,8 +287,8 @@ public class SetPathActivity extends AppCompatActivity {
                                         // Call your function or perform any operation after the delay
                                         // For example, you can call yourDelayedFunction();
                                         progressDialog.dismiss();
-                                        Toast.makeText(SetPathActivity.this, "Divider detected "+delay1, Toast.LENGTH_SHORT).show();
-                                        //  new ConnectToRaspberryPiTask().execute();
+                                        Toast.makeText(SetPathActivity.this, "Divider detected "+delay1+" unit time", Toast.LENGTH_SHORT).show();
+                                        //new ConnectToRaspberryPiTask().execute();
 
                                         // Dismiss the loader
 
@@ -301,7 +303,6 @@ public class SetPathActivity extends AppCompatActivity {
 
 
                             //Log.d("divider", "divider detected");
-
                         } else {
                             //  Toast.makeText(SetPathActivity.this, "NO Divider detected ", Toast.LENGTH_SHORT).show();
                            // Log.d("divider", "No divider detected");
