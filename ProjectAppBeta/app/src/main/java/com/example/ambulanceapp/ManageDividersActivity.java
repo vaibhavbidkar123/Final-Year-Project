@@ -66,7 +66,7 @@ public class ManageDividersActivity extends AppCompatActivity {
                     // Update UI on the main thread
                     runOnUiThread(() -> {
                         // Show a success message
-                        Toast.makeText(ManageDividersActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ManageDividersActivity.this, "Added a New Divider", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ManageDividersActivity.this, DisplayDividersActivity.class);
                         startActivity(intent);
                     });
