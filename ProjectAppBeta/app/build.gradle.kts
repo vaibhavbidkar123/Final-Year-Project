@@ -44,5 +44,7 @@ dependencies {
     implementation ("com.google.android.libraries.places:places:3.3.0") // Check for the latest version
     implementation ("com.google.maps:google-maps-services:0.18.0")
     implementation ("com.google.maps.android:android-maps-utils:2.2.0")
-
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("androidx.appcompat:appcompat:1.0.2")
+    implementation ("com.android.support.constraint:constraint-layout:1.1.0")
 }
