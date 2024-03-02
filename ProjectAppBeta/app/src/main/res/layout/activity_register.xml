@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="#FFFFFF"
     tools:context=".RegisterActivity">
 
     <androidx.cardview.widget.CardView
@@ -16,6 +17,7 @@
         android:padding="50dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="20dp"
+        app:cardBackgroundColor="@color/white"
         >
 
         <LinearLayout
@@ -50,6 +52,8 @@
         android:background="@drawable/edit_txt_border"
         android:textSize="16dp"
         android:padding="5dp"
+        android:textColor="@color/black"
+        android:textColorHint="#A8A8A8"
         android:drawableLeft="@drawable/person_icon"
         android:drawablePadding="10dp"
         android:hint="Enter your Username"
@@ -63,6 +67,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
         android:textSize="16dp"
+        android:textColorHint="#A8A8A8"
+        android:textColor="@color/black"
         android:hint="Enter your Password"
         android:background="@drawable/edit_txt_border"
         android:drawableLeft="@drawable/pw_icon"

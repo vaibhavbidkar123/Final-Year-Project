@@ -288,7 +288,7 @@ public class SetPathActivity extends AppCompatActivity {
                                         // For example, you can call yourDelayedFunction();
                                         progressDialog.dismiss();
                                         Toast.makeText(SetPathActivity.this, "Divider detected "+delay1+" unit time", Toast.LENGTH_SHORT).show();
-                                        //new ConnectToRaspberryPiTask().execute();
+                                        new ConnectToRaspberryPiTask().execute();
 
                                         // Dismiss the loader
 
