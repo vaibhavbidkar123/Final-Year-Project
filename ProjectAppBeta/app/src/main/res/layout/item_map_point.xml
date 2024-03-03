@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    >
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Latitude"
-            android:textSize="25sp" />
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Enter Latitude"
+            />
 
 
         <TextView
@@ -26,26 +37,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Longitude"
-            android:textSize="25sp" />
+            android:layout_margin="5dp"
+            android:text="Enter Longitude"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            />
 
-        <Button
-            android:id="@+id/buttonDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete User "
-            android:layout_gravity="end"
-            android:layout_margin="16dp"/>
+
 
         <TextView
             android:id="@+id/textViewDividerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="DividerName"
-            android:textSize="25sp" />
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="Enter Divider Name"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_button_background"
+            android:padding="10dp"
+            android:text="delete User"
+            android:textColor="@color/white"
+            android:textFontWeight="660"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
 
         <!-- Add any additional views as needed for each user item -->
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
+</LinearLayout>
