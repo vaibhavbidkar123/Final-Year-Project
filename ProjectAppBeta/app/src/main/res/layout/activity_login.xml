@@ -51,6 +51,7 @@
                 android:id="@+id/NameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:theme="@style/LoginTextInputLayoutStyle"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_txt_border"
                 android:textColorHint="#A8A8A8"
