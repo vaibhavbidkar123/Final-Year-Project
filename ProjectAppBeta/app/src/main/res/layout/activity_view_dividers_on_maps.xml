@@ -5,7 +5,7 @@
     tools:context=".ViewDividersOnMapsActivity">
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView1"
+        android:id="@+id/mapView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

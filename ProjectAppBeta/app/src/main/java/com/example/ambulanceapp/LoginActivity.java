@@ -61,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, DisplayUsersActivity.class);
                             startActivity(intent);
                         } else if((name.equals("developer") || name.equals("dev")) && password.equals("1234")){
-                            // Navigate to the next activity ( ManageDividersActivity.class)
-                            Intent intent = new Intent(LoginActivity.this, ManageDividersActivity.class);
+                            // Navigate to the next activity ( AddShowDividersAcitivity.class)
+                            Intent intent = new Intent(LoginActivity.this, AddShowDividersAcitivity.class);
                             startActivity(intent);
 
                         }else if (user != null) {

@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AmbulanceApp"
         tools:targetApi="31">
         <activity
+            android:name=".AddShowDividersAcitivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewDividersOnMapsActivity"
             android:exported="false" />
         <activity

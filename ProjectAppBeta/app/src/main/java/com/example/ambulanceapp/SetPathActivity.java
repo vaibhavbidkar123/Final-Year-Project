@@ -153,7 +153,7 @@ public class SetPathActivity extends AppCompatActivity {
         }
 
         builder.appendQueryParameter("mode", "driving")
-                .appendQueryParameter("key", "AIzaSyDhw_dv7xSxPQWCQtzg6SnfuIEHpHBB_vc"); // Replace with your actual API key
+                .appendQueryParameter("key", getString(R.string.google_maps_key)); // Replace with your actual API key
 
         return builder.build().toString();
     }

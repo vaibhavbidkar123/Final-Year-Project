@@ -35,7 +35,7 @@ public class ViewDividersOnMapsActivity extends AppCompatActivity implements OnM
 
 
         // Initialize the MapView
-        mapView = findViewById(R.id.mapView1);
+        mapView = findViewById(R.id.mapView2);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
@@ -43,7 +43,7 @@ public class ViewDividersOnMapsActivity extends AppCompatActivity implements OnM
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(15.2832,73.9862), 10f));
         this.googleMap = googleMap;
 
 
