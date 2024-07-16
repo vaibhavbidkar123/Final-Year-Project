@@ -93,7 +93,7 @@ public class SetPathActivity extends AppCompatActivity {
 
     private class ConnectToRaspberryPiTask extends AsyncTask<Void, Void, String> {
 
-        private static final String RASPBERRY_PI_IP = "192.168.0.105";
+        private static final String RASPBERRY_PI_IP = "192.168.227.83";
         //10.41.0.1
         //192.168.0.105
 

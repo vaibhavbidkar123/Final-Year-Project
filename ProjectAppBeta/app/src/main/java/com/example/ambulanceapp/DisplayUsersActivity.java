@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import java.util.List;
 
-
+//this activity will be accessed by the admin
 public class DisplayUsersActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
